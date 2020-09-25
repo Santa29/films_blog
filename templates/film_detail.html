@@ -1,0 +1,31 @@
+<!--templates/film_detail.html-->
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="article-entry">
+        <h2>{{film.film_name}}</h2>
+            <p>{{film.author}}|{{film.date}}</p>
+            <p>{{film.actors}}</p>
+            <p>{{film.body}}</p>
+    </div>
+    <p>
+        <a href="{% url 'film_edit' film.pk %}">Edit</a>
+        |
+        <a href="{% url 'film_delete' film.pk %}">Delete</a>
+    </p>
+    <p>
+        Back to <a href="{% url 'film_list' %}">All Reviews</a>
+    </p>
+    {% for comment in film.reviews.all %}
+        <div class="card">
+            <div class="card-header">
+                <span class="text-muted">by {{comment.author}}|{{comment.date}}</span>
+            </div>
+            <div class="card-body">
+                <p>{{comment.review_comment}}</p>
+                <a href="{% url 'comment_edit' comment.pk %}">Edit</a>
+                | 
+                <a href="{% url 'comment_delete' comment.pk %}">Delete</a>
+        </div>
+    {% endfor %}
+{% endblock content %}
