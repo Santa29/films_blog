@@ -55,8 +55,9 @@ class FilmCreateView(LoginRequiredMixin, CreateView):
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = ReviewComment
     template_name = 'comment_new.html'
-    fields = ('review_comment')
+    fields = ('review_comment', )
     login_url = 'login'
+    success_url = reverse_lazy('film')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -65,8 +66,9 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 class CommentUpdateView(LoginRequiredMixin, UpdateView):
     model = ReviewComment
     template_name = 'comment_edit.html'
-    fields = ('review_comment')
+    fields = ('review_comment', )
     login_url = 'login'
+    success_url = reverse_lazy('film_list')
 
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()

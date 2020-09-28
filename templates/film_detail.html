@@ -1,6 +1,8 @@
 <!--templates/film_detail.html-->
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
     <div class="article-entry">
         <h2>{{film.film_name}}</h2>
@@ -28,4 +30,9 @@
                 <a href="{% url 'comment_delete' comment.pk %}">Delete</a>
         </div>
     {% endfor %}
+    {% if user.is_authenticated %}
+            <a href="{% url 'comment_new' film.pk %}">
+                + New
+            </a>
+    {% endif %}
 {% endblock content %}
